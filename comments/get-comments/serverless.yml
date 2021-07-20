@@ -1,0 +1,24 @@
+service: get-comments
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  lambdaHashingVersion: 20201221
+  apiGateway:
+    restApiId:
+      'Fn::ImportValue': MyApiGateway-restApiId
+    restApiRootResourceId:
+      'Fn::ImportValue': MyApiGateway-rootResourceId
+plugins:
+  - serverless-plugin-typescript
+
+functions:
+  getComments:
+    handler: handler.core
+    events:
+      - http:
+          path: /comments/{waypointId}
+          method: get
+          cors: true
+    layers:
+      - arn:aws:lambda:us-east-1:498397354579:layer:parseLayer:1

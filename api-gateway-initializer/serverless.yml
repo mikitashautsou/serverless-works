@@ -1,0 +1,35 @@
+service: atlasguides-nanoservices
+frameworkVersion: '2'
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  lambdaHashingVersion: 20201221
+  # https://www.serverless.com/framework/docs/providers/aws/events/apigateway/#share-api-gateway-and-api-resources
+resources:
+  Resources:
+    MyApiGW:
+      Type: AWS::ApiGateway::RestApi
+      Properties:
+        Name: MyApiGW
+  Outputs:
+    apiGatewayRestApiId:
+      Value:
+        Ref: MyApiGW
+      Export:
+        Name: MyApiGateway-restApiId
+
+    apiGatewayRestApiRootResourceId:
+      Value:
+        Fn::GetAtt:
+          - MyApiGW
+          - RootResourceId
+      Export:
+        Name: MyApiGateway-rootResourceId
+functions:
+  initial:
+    handler: initial/init.init
+    events:
+      - httpApi:
+          path: /
+          method: GET

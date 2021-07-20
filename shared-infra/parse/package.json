@@ -1,0 +1,9 @@
+{
+  "name": "parse",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "parse": "^3.3.0"
+  }
+}

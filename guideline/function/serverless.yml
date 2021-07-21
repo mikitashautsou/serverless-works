@@ -9,15 +9,13 @@ provider:
       'Fn::ImportValue': MyApiGateway-restApiId
     restApiRootResourceId:
       'Fn::ImportValue': MyApiGateway-rootResourceId
-plugins:
-  - serverless-plugin-typescript
 
-functions:
+      functions:
   getComments:
     handler: handler.core
     events:
       - http:
-          path: /waypoints/{waypointId}/comments
+          path: /handler.core
           method: get
           cors: true
     layers:
